@@ -120,7 +120,6 @@ img{display:block;max-width:100%}
 .stage img.old{z-index:0}.stage img:not(.old){z-index:1}
 .stage .loc,.stage .count,.stage .nxt{transition:opacity .35s ease,background .3s}
 .stage.chg .loc,.stage.chg .count,.stage.chg .nxt{opacity:0}
-.thumbs{transition:opacity .35s ease}.thumbs.fade{opacity:0}
 .stage .nxt{position:absolute;right:12px;bottom:12px;z-index:2;display:flex;align-items:center;gap:10px;max-width:calc(100% - 24px);padding:6px 6px 6px 16px;border-radius:99px;background:rgba(20,20,20,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;font-size:13px;cursor:pointer;transition:background .3s}
 .stage .nxt small{color:rgba(255,255,255,.6);font-size:11px}
 .stage .nxt b{font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -137,7 +136,9 @@ img{display:block;max-width:100%}
 .thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
 .th{position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;cursor:pointer;opacity:.5;transition:opacity .3s}
 .th.on,.th:hover{opacity:1}
-.th img{width:100%;height:100%;object-fit:cover}
+.th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .9s cubic-bezier(.4,0,.2,1)}
+.th img.in{opacity:0}
+.th i,.th span{z-index:1}.th span{transition:opacity .3s ease}.th span.out{opacity:0}
 .th span{position:absolute;left:8px;bottom:8px;font-size:11px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)}
 .th i{position:absolute;left:0;top:0;height:3px;width:0;background:var(--blue2)}
 .th.on i{animation:fill 5s linear forwards}
@@ -679,13 +680,16 @@ const mbar=$('#mbar');addEventListener('scroll',()=>mbar.classList.toggle('on',s
   const imgs=o.im.map(([f,l])=>`<img src="img/${f}.jpg" alt="${l}">`).join('');
   if(first){st.insertAdjacentHTML('afterbegin',imgs);thumbs();txt(k);go(0);return}
   // crossfade: new photos fade in over the old ones, text and thumbnails fade out and back in
-  busy=1;clearTimeout(tm);fi.classList.add('fade');th.classList.add('fade');st.classList.add('chg');
-  const pre=new Image();pre.src=`img/${o.im[0][0]}.jpg`;
-  Promise.race([Promise.all([pre.decode().catch(()=>{}),new Promise(r=>setTimeout(r,350))]),new Promise(r=>setTimeout(r,900))]).then(()=>{
+  busy=1;clearTimeout(tm);fi.classList.add('fade');st.classList.add('chg');th.querySelectorAll('span').forEach(x=>x.classList.add('out'));
+  const pre=o.im.map(([f])=>{const m=new Image();m.src=`img/${f}.jpg`;return m.decode().catch(()=>{})});
+  Promise.race([Promise.all([...pre,new Promise(r=>setTimeout(r,350))]),new Promise(r=>setTimeout(r,900))]).then(()=>{
    const old=[...st.querySelectorAll('img')];old.forEach(m=>m.classList.add('old'));
    st.querySelector('.loc').insertAdjacentHTML('beforebegin',imgs);
-   st.querySelector('.loc').lastChild.textContent=o.a;thumbs();txt(k);void st.offsetWidth;
-   go(0);fi.classList.remove('fade');th.classList.remove('fade');st.classList.remove('chg');
+   st.querySelector('.loc').lastChild.textContent=o.a;txt(k);
+   // thumbnails stay in place: each one crossfades to the new photo
+   th.querySelectorAll('.th').forEach((b,j)=>{const [f,l]=o.im[j],ims=[...b.querySelectorAll('img')],ol=ims[ims.length-1],m=document.createElement('img');m.src=`img/${f}.jpg`;m.alt=l;m.className='in';ol.after(m);b.setAttribute('aria-label',l);
+    const sp=b.querySelector('span');sp.textContent=l;sp.classList.remove('out');requestAnimationFrame(()=>requestAnimationFrame(()=>m.classList.remove('in')));setTimeout(()=>ims.forEach(x=>x.remove()),1200)});
+   void st.offsetWidth;go(0);fi.classList.remove('fade');st.classList.remove('chg');
    busy=0;setTimeout(()=>old.forEach(m=>m.remove()),1100)})};
  const step=d=>show((cur+d+N)%N);
  // lock the panel to the tallest project so switching never changes the section height
