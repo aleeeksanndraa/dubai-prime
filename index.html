@@ -101,16 +101,31 @@ img{display:block;max-width:100%}
 .tabs button{height:30px;padding:0 14px;border-radius:99px;font-size:12px;color:rgba(255,255,255,.7);cursor:pointer;transition:background .3s,color .3s}
 .tabs button.on{background:#fff;color:var(--ink)}
 .feat{display:grid;grid-template-columns:1.45fr 1fr;gap:16px}
-.otabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
-.ot{display:flex;flex-direction:column;gap:10px;text-align:left;padding:16px 18px;border-radius:16px;background:#2C2C2C;color:#fff;cursor:pointer;transition:background .35s,color .35s}
-.ot:hover{background:#363636}
-.ot .r{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(255,255,255,.5)}
-.ot .r em{font-style:normal;padding:4px 9px;border-radius:99px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8)}
-.ot b{font-weight:400;font-size:clamp(17px,1.4vw,21px);letter-spacing:-.025em;line-height:1.1}
-.ot small{font-size:12px;color:rgba(255,255,255,.55)}
-.ot.on{background:var(--blue);color:var(--ink)}
-.ot.on .r,.ot.on small{color:rgba(29,29,29,.6)}.ot.on .r em{background:rgba(255,255,255,.6);color:var(--ink)}
-.finfo .sw{transition:opacity .35s}.finfo.fade .sw{opacity:0}
+.onav{display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.onum{display:flex;align-items:baseline;gap:8px;font-weight:300;letter-spacing:-.04em;line-height:.9}
+.onum b{font-weight:300;font-size:clamp(44px,4.6vw,72px);display:inline-block;overflow:hidden;height:.9em}
+.onum b i{display:block;font-style:normal;transition:transform .5s cubic-bezier(.7,0,.2,1)}
+.onum span{font-size:16px;color:rgba(255,255,255,.45);letter-spacing:-.01em}
+.oarr{display:flex;gap:8px}
+.oarr button{width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.22);color:#fff;display:grid;place-items:center;cursor:pointer;transition:background .3s,color .3s,border-color .3s}
+.oarr button:hover{background:var(--blue);border-color:var(--blue);color:var(--ink)}
+.oarr svg{width:18px;height:18px}
+.obars{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px}
+.obars button{text-align:left;cursor:pointer;color:rgba(255,255,255,.45);font-size:12px;padding-top:12px;position:relative;transition:color .3s}
+.obars button:before,.obars button i{content:"";position:absolute;left:0;top:0;height:2px;width:100%;background:rgba(255,255,255,.15)}
+.obars button i{width:0;background:var(--blue);transition:width .6s cubic-bezier(.7,0,.2,1)}
+.obars button.on{color:#fff}.obars button.on i{width:100%}
+.obars button:hover{color:#fff}
+.ost{display:inline-block;font-size:11px;padding:5px 10px;border-radius:99px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);margin-bottom:14px}
+.stage .wipe{position:absolute;inset:0;z-index:3;background:#2C2C2C;transform:scaleX(0);transform-origin:100% 50%;transition:transform .5s cubic-bezier(.7,0,.2,1);pointer-events:none}
+.stage .wipe.in{transform:scaleX(1);transform-origin:0 50%}
+.stage .nxt{position:absolute;right:12px;bottom:12px;z-index:2;display:flex;align-items:center;gap:10px;max-width:calc(100% - 24px);padding:6px 6px 6px 16px;border-radius:99px;background:rgba(20,20,20,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;font-size:13px;cursor:pointer;transition:background .3s}
+.stage .nxt small{color:rgba(255,255,255,.6);font-size:11px}
+.stage .nxt b{font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stage .nxt .c{flex:0 0 32px;width:32px;height:32px;border-radius:50%;background:var(--blue);color:var(--ink);display:grid;place-items:center}
+.stage .nxt .c svg{width:14px;height:14px}
+.stage .nxt:hover{background:rgba(20,20,20,.8)}
+.finfo .sw{transition:opacity .35s,transform .35s}.finfo.fade .sw{opacity:0;transform:translateY(8px)}
 .stage{position:relative;aspect-ratio:16/11;border-radius:18px;overflow:hidden;background:#333}
 .stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .9s,transform 6s linear}
 .stage img.on{opacity:1;transform:scale(1)}
@@ -393,7 +408,7 @@ footer .bot p{max-width:420px}
 
 @media (max-width:1000px){
   .navlinks{display:none}
-  .otabs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-left:-4px;margin-right:-4px;padding:0 4px;scrollbar-width:none}.ot{flex:0 0 78%;scroll-snap-align:start}.feat{grid-template-columns:1fr}.grid2,.who,.calcw,.cta,.areas{grid-template-columns:1fr}
+  .feat{grid-template-columns:1fr}.grid2,.who,.calcw,.cta,.areas{grid-template-columns:1fr}
     .calcw{gap:24px}
 }
 @media (max-width:700px){
@@ -485,14 +500,16 @@ footer .bot p{max-width:420px}
     <div><p class="kick" style="color:rgba(255,255,255,.6)">Featured projects</p><h2 class="h2" style="margin-top:14px">Current investment opportunities</h2></div>
     <p class="note" style="max-width:300px">Three projects we recommend right now, chosen for rental demand and payment flexibility. Ask for the full list.</p>
   </div>
-  <div class="otabs rv" id="otabs" role="tablist" aria-label="Projects"></div>
   <div class="feat rv">
     <div class="fgal">
-      <div class="stage" id="stage"><img class="on" src="img/p03.jpg" alt="Living room"><img src="img/p04.jpg" alt="Pool terrace"><img src="img/p05.jpg" alt="Bedroom"><img src="img/p10.jpg" alt="Balcony"><span class="chip loc"><svg class="ico" viewBox="0 0 22 28"><use href="#pin"/></svg>Jumeirah Beach Residence (JBR)</span><span class="count" id="fcount">01 / 04</span></div>
+      <div class="stage" id="stage"><img class="on" src="img/p03.jpg" alt="Living room"><img src="img/p04.jpg" alt="Pool terrace"><img src="img/p05.jpg" alt="Bedroom"><img src="img/p10.jpg" alt="Balcony"><span class="chip loc"><svg class="ico" viewBox="0 0 22 28"><use href="#pin"/></svg>Jumeirah Beach Residence (JBR)</span><span class="count" id="fcount">01 / 04</span><button class="nxt" id="fnext"><small>Next</small><b></b><span class="c"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 4l5 5-5 5"/></svg></span></button><div class="wipe" id="wipe"></div></div>
       <div class="thumbs" id="thumbs"><button class="th on" data-i="0" aria-label="Living room"><img src="img/p03.jpg" alt="Living room"><i></i><span>Living room</span></button><button class="th" data-i="1" aria-label="Pool terrace"><img src="img/p04.jpg" alt="Pool terrace"><i></i><span>Pool terrace</span></button><button class="th" data-i="2" aria-label="Bedroom"><img src="img/p05.jpg" alt="Bedroom"><i></i><span>Bedroom</span></button><button class="th" data-i="3" aria-label="Balcony"><img src="img/p10.jpg" alt="Balcony"><i></i><span>Balcony</span></button></div>
     </div>
     <aside class="finfo">
+      <div><div class="onav"><div class="onum" aria-live="polite"><b id="onum"><i>01</i></b><span>/ 03</span></div><div class="oarr"><button id="oprev" aria-label="Previous project"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11 4 6 9l5 5"/></svg></button><button id="onxt" aria-label="Next project"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 4l5 5-5 5"/></svg></button></div></div>
+      <div class="obars" id="obars" role="tablist" aria-label="Projects"></div></div>
       <div class="sw">
+        <span class="ost" id="ost">Ready</span>
         <h3 id="ftitle">Azure Marina Residences</h3>
         <p class="fdesc" id="fdesc">A waterfront address in JBR, one of Dubai's established beachfront communities, popular with short-stay renters.</p>
       </div>
@@ -644,22 +661,27 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 $$('.rv').forEach(el=>io.observe(el));
 $('#menuBtn').onclick=()=>document.querySelector('footer').scrollIntoView({behavior:'smooth'});
 const mbar=$('#mbar');addEventListener('scroll',()=>mbar.classList.toggle('on',scrollY>innerHeight*.6&&scrollY<document.body.scrollHeight-innerHeight*1.6),{passive:true});
-// featured projects: tabs switch the gallery, title, text and specs
+// featured projects: counter, arrows, bars and swipe switch the gallery, title, text and specs
 {const OPP=[
  {n:'Azure Marina Residences',a:'Jumeirah Beach Residence (JBR)',st:'Ready',d:"A waterfront address in JBR, one of Dubai's established beachfront communities, popular with short-stay renters.",sp:[['Starting price','AED 1.85M'],['Unit types','1-2 bedroom apt'],['Completion','Ready'],['Purchase','Secondary']],im:[['p03','Living room'],['p04','Pool terrace'],['p05','Bedroom'],['p10','Balcony']]},
  {n:'Beachfront villas on the Palm',a:'Palm Jumeirah',st:'Ready',d:'Family villas on the Palm fronds with a private beach, for buyers who want a home they can also rent out in the high season.',sp:[['Starting price','AED 8.9M'],['Unit types','4-5 bedroom villa'],['Completion','Ready'],['Purchase','Secondary']],im:[['pr2-1','The villa'],['pr2-2','Living room'],['pr2-3','Bedroom'],['pr2-4','Private beach']]},
  {n:'Waterfront tower by the creek',a:'Dubai Creek Harbour',st:'Off-plan',d:'A new waterfront tower by the creek with a payment plan, for growth-focused buyers who can wait for handover.',sp:[['Starting price','AED 1.4M'],['Unit types','1-3 bedroom apt'],['Completion','Q4 2028'],['Payment plan','60 / 40']],im:[['pr3-1','The tower'],['pr3-2','Apartment'],['pr3-3','Rooftop pool'],['pr3-4','Sales gallery']]}];
- const st=$('#stage'),th=$('#thumbs'),fi=$('.finfo'),tabs=$('#otabs');let cur=0,fx=0,tm;
- tabs.innerHTML=OPP.map((o,k)=>`<button class="ot${k?'':' on'}" role="tab" aria-selected="${!k}" data-k="${k}"><span class="r"><span>0${k+1} / 0${OPP.length}</span><em>${o.st}</em></span><b>${o.n}</b><small>${o.a}</small></button>`).join('');
+ const st=$('#stage'),th=$('#thumbs'),fi=$('.finfo'),tabs=$('#obars'),wp=$('#wipe'),N=OPP.length;let cur=0,fx=0,tm,busy=0;
+ tabs.innerHTML=OPP.map((o,k)=>`<button role="tab" aria-selected="${!k}" data-k="${k}"><i></i>${o.a.replace(/ \(.*\)/,'')}</button>`).join('');
  const go=i=>{fx=i;const imgs=st.querySelectorAll('img'),ths=th.querySelectorAll('.th');imgs.forEach((m,k)=>m.classList.toggle('on',k===i));ths.forEach((b,k)=>{b.classList.remove('on');if(k===i){void b.offsetWidth;b.classList.add('on')}});$('#fcount').textContent=`0${i+1} / 0${imgs.length}`;clearTimeout(tm);tm=setTimeout(()=>go((fx+1)%imgs.length),5000)};
- const show=(k,first)=>{cur=k;const o=OPP[k];tabs.querySelectorAll('.ot').forEach((b,j)=>{b.classList.toggle('on',j===k);b.setAttribute('aria-selected',j===k)});
+ const show=(k,first)=>{if(busy)return;cur=k;const o=OPP[k];tabs.querySelectorAll('button').forEach((b,j)=>{b.classList.toggle('on',j===k);b.setAttribute('aria-selected',j===k)});
+  const nb=$('#onum'),ni=document.createElement('i');ni.textContent='0'+(k+1);if(first){nb.innerHTML='';nb.append(ni)}else{const oi=nb.firstChild;nb.append(ni);ni.style.transform='translateY(0)';requestAnimationFrame(()=>{oi.style.transform=ni.style.transform='translateY(-100%)'});setTimeout(()=>{oi.remove();ni.style.cssText=''},520)}
   const fill=()=>{st.querySelectorAll('img').forEach(m=>m.remove());st.insertAdjacentHTML('afterbegin',o.im.map(([f,l])=>`<img src="img/${f}.jpg" alt="${l}">`).join(''));
    st.querySelector('.loc').lastChild.textContent=o.a;
    th.innerHTML=o.im.map(([f,l],j)=>`<button class="th" data-i="${j}" aria-label="${l}"><img src="img/${f}.jpg" alt="${l}"><i></i><span>${l}</span></button>`).join('');th.querySelectorAll('.th').forEach(b=>b.onclick=()=>go(+b.dataset.i));
-   $('#ftitle').textContent=o.n;$('#fdesc').textContent=o.d;$('#fspecs').innerHTML=o.sp.map(([t,v])=>`<div><dt>${t}</dt><dd>${v}</dd></div>`).join('');
-   requestAnimationFrame(()=>{fi.classList.remove('fade');go(0)})};
-  if(first){fill();return}fi.classList.add('fade');setTimeout(fill,250)};
- tabs.querySelectorAll('.ot').forEach(b=>b.onclick=()=>{if(+b.dataset.k!==cur)show(+b.dataset.k)});show(0,true)}
+   $('#ost').textContent=o.st;$('#fnext b').textContent=OPP[(k+1)%N].n;$('#ftitle').textContent=o.n;$('#fdesc').textContent=o.d;$('#fspecs').innerHTML=o.sp.map(([t,v])=>`<div><dt>${t}</dt><dd>${v}</dd></div>`).join('');
+   requestAnimationFrame(()=>{fi.classList.remove('fade');wp.classList.remove('in');go(0)})};
+  if(first){fill();return}busy=1;fi.classList.add('fade');wp.classList.add('in');setTimeout(()=>{fill();busy=0},520)};
+ const step=d=>show((cur+d+N)%N);
+ tabs.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(+b.dataset.k!==cur)show(+b.dataset.k)});
+ $('#oprev').onclick=()=>step(-1);$('#onxt').onclick=$('#fnext').onclick=()=>step(1);
+ let tx=null;st.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});st.addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(dx)>50)step(dx<0?1:-1)});
+ show(0,true)}
 $$('.pin').forEach(p=>p.onclick=()=>$$('.pin').forEach(x=>x.classList.toggle('on',x===p)));
 $$('.it>button').forEach(b=>b.onclick=()=>{const it=b.parentElement,o=it.classList.contains('open');$$('.it').forEach(x=>x.classList.remove('open'));if(!o)it.classList.add('open')});
 // areas map
