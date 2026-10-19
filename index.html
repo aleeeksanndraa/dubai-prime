@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dubai Prime Properties</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#FFFFFF;--grey:#EEF0EF;--paper:#FFFFFF;--warm:#F5F3EF;--char:#232323;--char2:#2C2C2C;
+  --ink:#1D1D1D;--mute:#8B8B8B;--line:rgba(29,29,29,.12);--lineD:rgba(255,255,255,.14);
+  --sky:#83BBF5;--blue:#B9D3F6;--bluet:#3F6FB5;--blue2:#B9D3F6;--ice:#F1F6FD;--navy:#0E2A5C;--r:24px;--m:20px;--in:clamp(18px,2.6vw,48px);
+  --f:'Inter Tight',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--page);color:var(--ink);font:400 15px/1.45 var(--f);letter-spacing:-.01em;-webkit-font-smoothing:antialiased;padding:var(--m) var(--m) 0;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit;border:0;background:none;outline:none}
+img{display:block;max-width:100%}
+.panel{border-radius:var(--r);overflow:hidden;position:relative;margin-bottom:var(--m)}
+.white{background:var(--paper)}.warm{background:var(--warm)}.dark{background:var(--char);color:#fff}
+.h1{font-weight:300;font-size:clamp(34px,3.3vw,58px);line-height:1.08;letter-spacing:-.035em}
+.h2{font-weight:300;font-size:clamp(28px,2.5vw,44px);line-height:1.1;letter-spacing:-.03em}
+.kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:0}
+.kick:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue)}
+.small{font-size:13px;line-height:1.4;color:var(--mute);max-width:300px}
+.dark .small{color:rgba(255,255,255,.55)}
+.pill{display:inline-flex;align-items:center;gap:10px;height:40px;padding:0 18px 0 4px;border-radius:99px;background:var(--char);color:#fff;font-size:13px;font-weight:500;white-space:nowrap;cursor:pointer;transition:transform .3s,background .3s}
+.pill .c{width:32px;height:32px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center}
+.pill:hover{transform:translateY(-2px)}
+.pill.blue{background:var(--blue);color:var(--ink)}.pill.blue .c{background:#fff;color:var(--ink)}
+.pill.lt{background:#fff;color:var(--ink)}.pill.lt .c{background:var(--char);color:#fff}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.92);color:var(--ink);font-size:12px;line-height:1.2;backdrop-filter:blur(8px)}
+.chip b{font-weight:500}
+.chip.bl{background:var(--blue);color:var(--ink)}
+.circ{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.85);color:var(--ink);transition:transform .35s}
+.ico{width:16px;height:16px;flex:none}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.shown{opacity:1;transform:none}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:8px;padding:8px;height:calc(100svh - 2*var(--m));min-height:640px;max-height:980px}
+.hero .txt{position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:calc(var(--in) - 8px)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.logo{display:inline-flex;align-items:center;gap:10px;line-height:1}
+.logo .mark{width:30px;height:30px;color:var(--bluet);flex:none}
+.logo span{display:flex;flex-direction:column}
+.logo b{font-weight:600;font-size:17px;letter-spacing:-.03em}
+.logo i{font-style:normal;font-size:8.5px;font-weight:500;letter-spacing:.34em;color:var(--mute);margin-top:4px}
+.icons{display:flex;gap:6px}
+.icons a,.icons button{width:34px;height:34px;border-radius:50%;background:var(--warm);display:grid;place-items:center;cursor:pointer}
+.hero .mid{text-align:center;margin:0 auto}
+.hero h1{font-size:clamp(42px,5vw,88px);line-height:1;letter-spacing:-.045em}
+.hero .mid .kick{color:var(--mute);margin-bottom:22px}
+.hero .mid .kick:before{display:none}
+.hero h1 .g{color:var(--mute)}
+.hero .bot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
+.explore{display:flex;align-items:center;gap:12px;font-size:12px;line-height:1.25;text-align:right}
+.explore img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.hero .ph{position:relative;border-radius:calc(var(--r) - 6px);overflow:hidden}
+.hero .ph img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);animation:z 12s ease-out forwards}
+@keyframes z{to{transform:scale(1)}}
+.hero .ph video.hv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
+.hero .ph video.hv.on{opacity:1}
+.band>video.bv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(var(--cs,1.12));opacity:0;transition:opacity .8s}
+.band>video.bv.on{opacity:1}
+.band:after{z-index:1}.band .mq{z-index:3}
+@media (prefers-reduced-motion:reduce){video.hv,video.bv{display:none}}
+.hero .ph .chip{z-index:2;position:absolute;right:16px;bottom:16px}
+.menu{display:none!important}
+.navlinks{display:flex;gap:22px;font-size:13px}
+.navlinks a{color:var(--mute);transition:color .2s}.navlinks a:hover{color:var(--ink)}
+
+/* marquee photo */
+.band{height:min(78vh,760px);min-height:420px}
+.band>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.band:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.28))}
+.mq{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);z-index:2;overflow:hidden;color:#fff}
+.mq .t{display:flex;width:max-content;animation:mq 38s linear infinite;font-weight:500;font-size:clamp(34px,4.2vw,76px);letter-spacing:-.04em;white-space:nowrap}
+.mq .t span{display:inline-flex;align-items:center;gap:.45em;padding-right:.45em}
+.mq .t span:after{content:"";width:.28em;height:.28em;border-radius:50%;background:#fff}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* portfolio */
+.pad{padding:var(--in)}
+.phead{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:28px;flex-wrap:wrap}
+.tabs{display:flex;gap:4px;padding:4px;border-radius:99px;background:rgba(255,255,255,.08)}
+.tabs button{height:30px;padding:0 14px;border-radius:99px;font-size:12px;color:rgba(255,255,255,.7);cursor:pointer;transition:background .3s,color .3s}
+.tabs button.on{background:#fff;color:var(--ink)}
+.feat{display:grid;grid-template-columns:1.45fr 1fr;gap:16px}
+.stage{position:relative;aspect-ratio:16/11;border-radius:18px;overflow:hidden;background:#333}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .9s,transform 6s linear}
+.stage img.on{opacity:1;transform:scale(1)}
+.stage .loc{position:absolute;left:16px;top:16px;bottom:auto!important;z-index:2}
+.stage .count{position:absolute;right:18px;top:18px;z-index:2;font-size:12px;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.th{position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;cursor:pointer;opacity:.5;transition:opacity .3s}
+.th.on,.th:hover{opacity:1}
+.th img{width:100%;height:100%;object-fit:cover}
+.th span{position:absolute;left:8px;bottom:8px;font-size:11px;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.th i{position:absolute;left:0;top:0;height:3px;width:0;background:var(--blue2)}
+.th.on i{animation:fill 5s linear forwards}
+@keyframes fill{to{width:100%}}
+.finfo{background:#2C2C2C;border-radius:18px;padding:clamp(20px,2.4vw,34px);display:flex;flex-direction:column;justify-content:space-between;gap:28px}
+.finfo h3{font-weight:400;font-size:clamp(26px,2.6vw,40px);letter-spacing:-.03em;line-height:1.05}
+.fdesc{color:rgba(255,255,255,.65);margin-top:14px;font-size:14px;max-width:380px}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.12);border-radius:14px;overflow:hidden}
+.specs div{background:#2C2C2C;padding:14px 4px 14px 0}
+.specs div:nth-child(2n){padding-left:16px}
+.specs dt{font-size:11px;color:rgba(255,255,255,.5)}
+.specs dd{font-size:18px;letter-spacing:-.02em;margin-top:4px}
+.specs dd:first-child{color:var(--blue2)}
+.fcta{display:flex;flex-wrap:wrap;gap:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/3.6;background:#3a3a3a}
+.card>img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.card:hover>img{transform:scale(1.05)}
+.card .circ{position:absolute;right:16px;top:16px}
+.card:hover .circ{transform:rotate(45deg)}
+.card .cap{position:absolute;left:18px;bottom:16px;right:18px;font-size:13px;font-weight:500;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.35)}
+.card .ttl{position:absolute;left:18px;top:16px;font-size:clamp(18px,1.5vw,24px);font-weight:400;letter-spacing:-.02em;color:#fff;max-width:70%;line-height:1.1;text-shadow:0 1px 12px rgba(0,0,0,.3)}
+.facts{position:absolute;left:12px;right:12px;bottom:12px;display:flex;flex-wrap:wrap;gap:6px}
+.map{background:#EEF0F1}
+.map>img{object-position:30% 50%}
+.map .lab{position:absolute;left:16px;top:16px}
+.pin{position:absolute;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
+.pin svg{width:22px;height:28px;color:var(--char);transition:transform .3s}
+.pin span{font-size:11px;background:var(--char);color:#fff;padding:4px 8px;border-radius:8px;opacity:0;transform:translateY(4px);transition:.3s;white-space:nowrap}
+.pin:hover span,.pin.on span{opacity:1;transform:none}
+.pin:hover svg{transform:translateY(-3px)}
+.pfoot{display:flex;justify-content:space-between;align-items:center;margin-top:24px;gap:16px;flex-wrap:wrap}
+.pfoot .note{font-size:12px;color:rgba(255,255,255,.55);max-width:360px}
+
+/* areas */
+.ice{background:var(--ice)}
+.areas{margin-left:calc(-1 * var(--m));margin-right:calc(-1 * var(--m));border-radius:0}
+.areas{display:grid;grid-template-columns:.8fr 1.2fr;gap:8px;padding:8px}
+.areas .al{padding:calc(var(--in) - 8px);display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+.areas .lead{color:#56657a;margin-top:18px;max-width:420px}
+.locs{display:flex;flex-direction:column;gap:8px}
+.loc-i{display:grid;grid-template-columns:34px 1fr auto;align-items:start;gap:14px;text-align:left;padding:16px;border-radius:16px;background:rgba(255,255,255,.55);cursor:pointer;transition:background .3s,color .3s}
+.loc-i .n{font-size:12px;color:var(--bluet);padding-top:3px}
+.loc-i b{display:block;font-weight:500;font-size:18px;letter-spacing:-.02em}
+.loc-i small{display:block;font-size:13px;color:#5b6676;margin-top:4px;max-height:0;overflow:hidden;opacity:0;transition:max-height .5s,opacity .4s}
+.loc-i .tag{font-size:11px;padding:5px 10px;border-radius:99px;background:var(--ice);color:var(--bluet);white-space:nowrap}
+.loc-i.on{background:var(--blue);color:var(--ink)}
+.loc-i.on .n{color:rgba(29,29,29,.6)}.loc-i.on small{color:rgba(29,29,29,.75);max-height:80px;opacity:1}
+.loc-i.on .tag{background:rgba(255,255,255,.6);color:var(--ink)}
+.mapw{position:relative;border-radius:calc(var(--r) - 6px);overflow:hidden;min-height:560px;background:#C3D8F4}
+.mapz{position:absolute;inset:0;overflow:hidden;background:#C3D8F4}
+.mimg{position:absolute;left:0;top:0;transform-origin:0 0;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.mimg img{width:100%;height:100%;display:block}
+.mp{position:absolute;width:0;height:0;cursor:pointer}
+.mp i{position:absolute;left:-11px;top:-11px;width:22px;height:22px;border-radius:50%;background:var(--ink);border:4px solid #fff;box-shadow:0 6px 16px rgba(14,42,92,.3);transition:transform .3s,background .3s;transform:scale(var(--ps,1))}
+.mp.on i{background:var(--bluet)}
+.mp:before{content:"";position:absolute;left:-28px;top:-28px;width:56px;height:56px;border-radius:50%;background:rgba(31,143,199,.25);transform:scale(0)}
+.mp.on:before{animation:pulse 2s ease-out infinite}
+.mp span{position:absolute;left:18px;top:-14px;white-space:nowrap;font-size:12px;background:#fff;color:var(--ink);padding:6px 10px;border-radius:99px;box-shadow:0 6px 16px rgba(14,42,92,.12);opacity:0;transform:translateX(-6px) scale(var(--ps,1));transform-origin:0 50%;transition:.35s}
+.mp.on span,.mp:hover span{opacity:1;transform:scale(var(--ps,1))}
+.mp .pv{position:absolute;left:0;bottom:22px;width:220px;aspect-ratio:4/3;border-radius:14px;overflow:hidden;border:4px solid #fff;box-shadow:0 18px 40px rgba(14,42,92,.25);opacity:0;pointer-events:none;transform-origin:50% 100%;transform:translateX(-50%) scale(calc(var(--ps,1)*.85)) translateY(10px);transition:opacity .35s,transform .45s cubic-bezier(.2,.8,.2,1);z-index:5}
+.mp .pv.pr{left:auto;right:0;transform-origin:100% 100%;transform:translateX(20px) scale(calc(var(--ps,1)*.85)) translateY(10px)}
+.mp .pv img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.mp:hover .pv,.mp:focus-visible .pv{opacity:1;transform:translateX(-50%) scale(var(--ps,1))}
+.mp:hover .pv.pr,.mp:focus-visible .pv.pr{transform:translateX(20px) scale(var(--ps,1))}
+.mp:hover .pv img{transform:scale(1)}
+.mp:hover{z-index:6}
+.mp.dn .pv{bottom:auto;top:22px;transform-origin:50% 0}
+.mp:hover span{opacity:0}
+.mcard{position:absolute;left:16px;bottom:16px;background:#fff;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:4px;min-width:240px;box-shadow:0 10px 30px rgba(14,42,92,.12)}
+.acover{display:none}
+@media (min-width:701px){
+.awrap{height:200vh;margin-bottom:var(--m)}
+.awrap>.areas{position:sticky;top:8px;height:calc(100svh - 16px);margin-bottom:0}
+.awrap .mapw{position:absolute;top:8px;right:8px;bottom:8px;left:var(--ml,8px);min-height:0;z-index:2;will-change:left}
+.awrap .al{opacity:var(--ao,0);transform:translateX(calc((1 - var(--ao,0)) * -60px))}
+.awrap .al .rv{opacity:1;transform:none}
+.acover{display:block;position:absolute;inset:0;z-index:4;pointer-events:none;opacity:var(--co,1)}
+.acover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(var(--cs,1.15))}
+.acover:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,0) 40%,rgba(0,0,0,.35))}
+.acw{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);z-index:1;display:flex;justify-content:center;gap:clamp(18px,3vw,48px);color:#fff;font-size:clamp(36px,5.6vw,96px);letter-spacing:-.05em;white-space:nowrap}
+.acw span{display:inline-block;opacity:var(--wo,1);transform:translateY(var(--wy,0))}
+.acw span:nth-child(2){transform:translateY(calc(var(--wy,0px) * 1.6))}.acw span:nth-child(3){transform:translateY(calc(var(--wy,0px) * 2.2))}
+.acover p{position:absolute;left:24px;bottom:22px;z-index:1;color:#fff;font-size:13px;opacity:.85}
+.awrap .mp i,.awrap .mp:before{transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.awrap:not(.pins) .mp i{transform:scale(0)}
+.awrap.pins .mp:nth-child(3) i{transition-delay:.12s}.awrap.pins .mp:nth-child(4) i{transition-delay:.24s}
+.awrap .mcard,.awrap .zoom{opacity:var(--uo,0);transform:translateY(calc((1 - var(--uo,0)) * 16px))}
+.awrap.scrub .mimg{transition:none}
+}
+.mcimg{display:none}
+.mcard>small{font-size:11px;color:var(--mute)}
+.mcard>b{font-weight:500;font-size:20px;letter-spacing:-.02em}
+.mcard>span{font-size:12px;color:var(--bluet);margin-bottom:10px}
+.mcard .pill{align-self:flex-start}
+.zoom{position:absolute;right:16px;bottom:16px;display:flex;flex-direction:column;gap:6px}
+.zoom button{width:36px;height:36px;border-radius:50%;background:#fff;font-size:18px;cursor:pointer;box-shadow:0 4px 14px rgba(14,42,92,.1)}
+
+/* hero intro */
+.hl1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em}
+.hl1 .w>i{display:inline-block;font-style:normal;transform:translateY(110%)}
+.intro .hl1 .w>i{transform:none;transition:transform 1.1s cubic-bezier(.2,.75,.2,1)}
+.intro .hl1 .w:nth-child(2)>i{transition-delay:.12s}.intro .hl1 .w:nth-child(3)>i{transition-delay:.24s}
+.hero .top,.hero .mid .kick,.hero .bot{opacity:0;transform:translateY(14px);transition:opacity .8s,transform .9s cubic-bezier(.2,.75,.2,1)}
+.intro .hero .top{opacity:1;transform:none;transition-delay:.05s}
+.intro .hero .mid .kick{opacity:1;transform:none;transition-delay:.2s}
+.intro .hero .bot{opacity:1;transform:none;transition-delay:.55s}
+.hero .ph{clip-path:inset(0 0 0 100% round 18px);transition:clip-path 1.3s cubic-bezier(.7,0,.2,1) .1s}
+.intro .hero .ph{clip-path:inset(0 0 0 0 round 18px)}
+.hero .ph .chip{opacity:0;transform:translateY(10px) scale(.95);transition:.7s cubic-bezier(.2,.75,.2,1) 1.2s}
+.intro .hero .ph .chip{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.hl1 .w>i,.hero .top,.hero .mid .kick,.hero .bot,.hero .ph .chip{transform:none!important;opacity:1!important}.hero .ph{clip-path:none}}
+/* motion */
+.band{clip-path:inset(var(--ci,12%) var(--cx,18%) round 28px);will-change:clip-path}
+.band>img{transform:scale(var(--cs,1.12));transition:none;will-change:transform}
+.band .mq{opacity:var(--mo,0);transform:translateY(calc(-50% + var(--my,40px))) scale(var(--ms,.9));will-change:transform,opacity}
+.h2 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.16em;margin-bottom:-.16em}
+.h2 .w>i{display:inline-block;font-style:normal;transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.75,.2,1)}
+.h2.split.on .w>i{transform:none}
+.sc{transform:translateY(40px) scale(.96);opacity:0;transition:transform 1s cubic-bezier(.2,.75,.2,1),opacity .8s}
+.scards.on .sc{transform:none;opacity:1}
+.scards.on .sc:nth-child(2){transition-delay:.12s}.scards.on .sc:nth-child(3){transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){.band{clip-path:none}.band>img{transform:none}.band .mq{transform:translateY(-50%);opacity:1}.h2 .w>i,.sc{transform:none;opacity:1}}
+
+/* stats */
+.stats{padding:var(--in)}
+.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:34px}
+.scards{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:10px}
+.sc{position:relative;border-radius:18px;overflow:hidden;min-height:260px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:30px}
+.sc b{position:relative;font-weight:300;font-size:clamp(48px,4.6vw,80px);letter-spacing:-.05em;line-height:1}
+.sc p{position:relative;font-size:14px;line-height:1.3;max-width:280px}
+.sc p strong{display:block;font-weight:500;margin-bottom:2px}
+.sc.lt{background:var(--warm)}
+.sc.im{color:#fff}
+.sc.im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.sc.im:hover img{transform:scale(1.05)}
+.sc.im:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,0) 40%,rgba(0,0,0,.45));z-index:1}
+.sc.im b,.sc.im p{z-index:2}
+.sc.dk{background:var(--blue);color:var(--ink)}
+.sc.dk .ghost{position:absolute;right:-10px;top:14px;font-size:clamp(60px,7vw,120px);font-weight:600;letter-spacing:-.05em;color:rgba(255,255,255,.45);line-height:1}
+
+/* who */
+.who{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:var(--in);padding-bottom:140px}
+.who .more{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.7);margin-top:20px}
+.who .more:before{content:"";width:6px;height:6px;border-radius:50%;background:#fff}
+.who p.lead{color:rgba(255,255,255,.65);font-size:15px;max-width:420px;margin-top:20px}
+.list{display:flex;flex-direction:column;gap:10px}
+.it{background:#fff;color:var(--ink);border-radius:30px;overflow:hidden;transition:border-radius .4s}
+.it>button{width:100%;display:flex;align-items:center;gap:16px;padding:6px 18px 6px 6px;cursor:pointer;text-align:left}
+.it>button img{width:48px;height:48px;border-radius:50%;object-fit:cover}
+.it>button span{flex:1;font-size:16px;font-weight:500}
+.it>button svg{transition:transform .4s}
+.it.open>button svg{transform:rotate(180deg)}
+.it .b{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.2,.7,.2,1)}
+.it.open .b{grid-template-rows:1fr}
+.it .b>div{overflow:hidden}
+.it .b p{padding:4px 22px 20px 70px;font-size:14px;color:#555}
+.it.open{border-radius:22px}
+.whop{background:var(--blue);color:var(--ink)}
+.whop .who .more{color:rgba(29,29,29,.7)}.whop .who .more:before{background:var(--ink)}
+.whop .who p.lead{color:rgba(29,29,29,.7)}
+.whop .ghostq span{color:rgba(255,255,255,.55);border-color:rgba(255,255,255,.6)}
+.whop .ghostq span:nth-child(2n){color:rgba(29,29,29,.12);border-color:rgba(29,29,29,.14)}
+.whop .stats{padding-bottom:0}
+.whop .who{padding-top:calc(var(--in) + 30px);padding-bottom:var(--in)}
+.whop .sc.lt{background:#fff}
+.whop .sc.dk{background:var(--char);color:#fff}
+.whop .sc.dk .ghost{color:rgba(255,255,255,.08)}
+.whop .shead .pill.blue{background:var(--ink);color:#fff}
+.ghostq{position:absolute;left:0;bottom:22px;display:flex;gap:14px;width:max-content;animation:mq 46s linear infinite}
+.ghostq span:nth-child(2n){color:rgba(141,176,218,.4);border-color:rgba(141,176,218,.35)}
+.ghostq span{border:1px solid var(--lineD);border-radius:99px;padding:6px 26px;font-weight:500;font-size:clamp(28px,3vw,52px);letter-spacing:-.03em;color:rgba(255,255,255,.12);white-space:nowrap;text-transform:uppercase}
+
+/* process */
+.proc{padding:var(--in)}
+.route{position:relative;height:clamp(520px,44vw,640px);margin-top:20px;--rp:0}
+.route svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.route path{fill:none;stroke-linejoin:round;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.route .trk{stroke:#E3E5E4;stroke-width:2;stroke-dasharray:2 7}
+.route .drw{stroke:var(--ink);stroke-width:2.5}
+.rhead{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--blue);border:2px solid var(--ink);z-index:2;pointer-events:none}
+.rhead:after{content:"";position:absolute;inset:-9px;border-radius:50%;border:1px solid var(--blue);animation:pulse 2s ease-out infinite}
+.vfill{display:none}
+.stops{list-style:none}
+.stops li{position:absolute;left:var(--x);top:var(--y);width:0;height:0}
+.st{position:absolute;left:-23px;top:-23px;width:46px;height:46px;border-radius:50%;background:#fff;border:2px solid #E3E5E4;display:grid;place-items:center;font-size:12px;font-weight:500;color:var(--mute);transition:background .5s,border-color .5s,color .5s,transform .6s cubic-bezier(.3,1.5,.5,1);z-index:3}
+.stops li.on .st{background:var(--blue);border-color:var(--ink);color:var(--ink);transform:scale(1.08)}
+.sx{position:absolute;left:-22px;width:min(250px,22vw);opacity:.25;transform:translateY(10px);transition:opacity .6s,transform .6s}
+.lo .sx{top:44px}.hi .sx{bottom:44px}
+.last .sx{left:auto;right:-22px;text-align:right}
+.stops li.on .sx{opacity:1;transform:none}
+.sx h3{font-weight:500;font-size:19px;letter-spacing:-.02em}
+.sx p{font-size:14px;color:#666;margin-top:8px;line-height:1.4}
+.stops li:hover .st{transform:scale(1.18)}
+
+/* calc */
+.calcw{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;padding:var(--in)}
+.calcw .lead{color:var(--mute);margin-top:18px;max-width:380px}
+.calc{display:grid;grid-template-columns:1.2fr .8fr;gap:10px}
+.fbox{background:var(--warm);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:16px}
+.f label{display:block;font-size:12px;color:var(--mute);margin-bottom:6px}
+.fld{display:flex;align-items:center;gap:10px;height:48px;padding:0 16px;border-radius:12px;background:#fff;font-size:15px}
+.fld input{width:100%;min-width:0;font-weight:500}
+.fld input.s{width:3ch;flex:none}.fld input.m{width:7ch;flex:none}
+.fld .x{margin-left:auto;color:var(--mute);white-space:nowrap;font-size:13px}
+.fld:focus-within{box-shadow:0 0 0 1.5px var(--ink)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;background:var(--line);margin-top:12px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--blue);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--ink);border:0}
+.rbox{background:var(--blue);color:var(--ink);border-radius:18px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:12px}
+.res{border-bottom:1px solid rgba(29,29,29,.15);padding-bottom:14px}
+.res:last-of-type{border:0}
+.res small{font-size:12px;color:rgba(29,29,29,.6)}
+.res div{font-weight:300;font-size:clamp(30px,2.6vw,44px);letter-spacing:-.04em;line-height:1.1;margin-top:4px;font-variant-numeric:tabular-nums}
+.res div em{font-style:normal;font-size:14px;letter-spacing:0;color:rgba(29,29,29,.5);margin-left:6px}
+.calcp{background:var(--grey)}
+.calcnote{font-size:12px;color:var(--mute);margin-top:10px}
+
+/* gallery masonry */
+.galw{height:320vh;overflow:visible;background:transparent}
+.gstage{position:sticky;top:8px;height:calc(100svh - 16px);border-radius:var(--r);overflow:hidden;background:#fff}
+.gtitle{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-weight:400;font-size:clamp(34px,4.4vw,72px);letter-spacing:-.045em;white-space:nowrap;z-index:2;will-change:transform,opacity}
+.gtitle sup{font-size:.32em;letter-spacing:0;margin-left:4px;vertical-align:super}
+.gt{position:absolute;border-radius:6px;object-fit:cover;aspect-ratio:3/4;will-change:transform,opacity;z-index:1}
+.gcenter{position:absolute;overflow:hidden;z-index:3;will-change:left,top,width,height}
+.gcenter>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .9s,transform 1.6s cubic-bezier(.2,.7,.2,1)}
+.gcenter>img.on{opacity:1;transform:none}
+.gshade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.12) 50%,rgba(0,0,0,.4));opacity:0}
+.gwords{position:absolute;left:0;right:0;top:22%;overflow:visible;opacity:0}
+.gtrack{display:flex;gap:clamp(30px,5vw,80px);white-space:nowrap;will-change:transform}
+.gw{font-size:clamp(32px,4.4vw,72px);letter-spacing:-.045em;color:rgba(255,255,255,.35);transition:color .5s}
+.gw.on{color:#fff}
+.gtext{position:absolute;left:50%;top:calc(22% + clamp(60px,7vw,110px));width:min(360px,80%);opacity:0;color:#fff}
+.gp{position:absolute;inset:0 auto auto 0;font-size:14px;line-height:1.45;opacity:0;transform:translateY(8px);transition:.5s}
+.gp.on{opacity:.9;transform:none}
+.gcta{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);opacity:0}
+
+
+/* contact */
+.cta{display:grid;grid-template-columns:1.25fr .75fr;gap:8px;padding:8px}
+.cta .ph{position:relative;border-radius:calc(var(--r) - 6px);overflow:hidden;min-height:560px}
+.cta .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cta .ph:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.5),rgba(0,0,0,0) 60%)}
+.cta .ph .t{position:absolute;left:var(--in);right:var(--in);top:calc(var(--in) - 8px);z-index:2;color:#fff;max-width:560px}
+.cta .ph .t p{margin:16px 0 22px;color:rgba(255,255,255,.85);max-width:420px}
+form{padding:calc(var(--in) - 8px);display:flex;flex-direction:column;gap:10px;justify-content:center;height:100%}
+form .k{font-size:12px;color:var(--mute);margin-bottom:6px}
+form .in{height:50px;border-radius:12px;background:var(--warm);display:flex;align-items:center;padding:0 16px}
+form .in input,form select{width:100%;height:100%}
+form select{appearance:none;cursor:pointer}
+form .sel{background:var(--warm) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%231D1D1D' stroke-width='1.5'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E") right 16px center no-repeat}
+form textarea{height:110px;border-radius:12px;background:var(--warm);padding:14px 16px;resize:none}
+::placeholder{color:#9a9a9a}
+form .in.err{box-shadow:0 0 0 1.5px #D9534F}
+form .pill{align-self:flex-start;margin-top:6px}
+form small{font-size:12px;color:var(--mute)}
+.done{display:none;flex-direction:column;justify-content:center;gap:12px;padding:var(--in);height:100%}
+.sent form{display:none}.sent .done{display:flex}
+
+/* footer */
+footer{padding:var(--in)}
+footer .g{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
+footer .logo b{font-size:20px}footer .logo .mark{width:36px;height:36px;color:var(--blue2)}
+footer .logo i{color:rgba(255,255,255,.5)}
+footer h4{font-size:12px;font-weight:400;color:rgba(255,255,255,.5);margin-bottom:12px}
+footer nav a{display:block;font-size:15px;padding:4px 0}
+footer nav a:hover{opacity:.6}
+footer .bot{display:flex;justify-content:space-between;gap:20px;margin-top:70px;padding-top:20px;border-top:1px solid var(--lineD);font-size:12px;color:rgba(255,255,255,.5);flex-wrap:wrap}
+footer .bot p{max-width:420px}
+.mbar{display:none}
+
+@media (max-width:1000px){
+  .navlinks{display:none}
+  .feat{grid-template-columns:1fr}.grid2,.who,.calcw,.cta,.areas{grid-template-columns:1fr}
+    .calcw{gap:24px}
+}
+@media (max-width:700px){
+  :root{--m:8px;--r:20px;--in:20px}
+  body{font-size:14px}
+  .hero{grid-template-columns:1fr;grid-template-rows:auto 46svh;height:auto;min-height:0;max-height:none}
+  .hero .txt{padding:14px 12px 18px;gap:56px}
+  .hero .mid{text-align:left;margin:0}
+  .hero h1{font-size:44px}
+  .hero .bot{flex-direction:column;align-items:flex-start;gap:18px}
+  .explore{text-align:left;flex-direction:row-reverse}
+  .menu{display:grid!important}
+  .band{height:62svh;min-height:0}
+  .card{aspect-ratio:4/4.8}
+  .row{grid-template-columns:110px 1fr;padding:18px 0}
+  .row b{font-size:42px}
+    .who{padding-bottom:110px;gap:28px}
+  .it>button span{font-size:15px}
+  .it .b p{padding:2px 18px 18px 18px}
+  .route{height:auto;padding-left:0}.route svg,.rhead{display:none}
+  .route:before{content:"";position:absolute;left:22px;top:23px;bottom:40px;border-left:2px dotted #D9DCDB}
+  .vfill{display:block;position:absolute;left:21px;top:23px;width:3px;height:calc((100% - 63px) * var(--rp));background:var(--ink);border-radius:2px}
+  .stops li{position:relative;left:auto;top:auto;width:auto;height:auto;padding:0 0 30px 64px;min-height:46px}
+  .st{left:0;top:0}
+  .sx,.last .sx{position:static;width:auto;text-align:left;padding-top:10px}
+  .areas .al{padding:14px 12px 8px;gap:24px}
+  .mapw{min-height:0;display:flex;flex-direction:column;background:#fff}
+  .mapz{position:relative!important;height:340px;border-radius:calc(var(--r) - 8px);overflow:hidden}
+  .mp .pv{display:none}.mcimg{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;margin-bottom:8px}
+  .mcard{position:static;margin:8px 0 0;min-width:0;box-shadow:none;background:var(--ice)}
+  .zoom{top:10px;bottom:auto;right:10px}
+  .calc{grid-template-columns:1fr}
+  .scards{grid-template-columns:1fr}.shead{flex-direction:column;align-items:flex-start}
+  .gtext{left:22px;top:calc(26% + 58px)}.gwords{top:26%}.gcta{bottom:96px}
+  .cta .ph{min-height:440px}
+  footer .g{grid-template-columns:1fr}
+  footer{padding-bottom:90px}
+  .mbar{display:flex;position:fixed;left:8px;right:8px;bottom:8px;z-index:40;justify-content:space-between;align-items:center;padding:6px 6px 6px 18px;border-radius:99px;background:rgba(35,35,35,.92);backdrop-filter:blur(12px);color:#fff;font-size:12px;transform:translateY(150%);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+  .mbar.on{transform:none}
+  .mbar .pill{height:38px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="ar" viewBox="0 0 16 16"><path d="M5 11 11 5M6 5h5v5" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+  <symbol id="dn" viewBox="0 0 16 16"><path d="M8 3v10M4 9l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+  <symbol id="ph" viewBox="0 0 16 16"><path d="M5.2 2.5 3 3.2c-.4 3.6 4.2 9.3 9.8 9.8l.7-2.2-2.7-1.4-1.3 1.2C7.8 10 6 8.2 5.4 6.5L6.6 5.2z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+  <symbol id="cal" viewBox="0 0 16 16"><rect x="3" y="2.5" width="10" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 5.5h5M5.5 8h1M7.5 8h1M9.5 8h1M5.5 10.5h1M7.5 10.5h1M9.5 10.5h1" stroke="currentColor" stroke-width="1.3"/></symbol>
+  <symbol id="mn" viewBox="0 0 16 16"><path d="M3 6h10M3 10h10" stroke="currentColor" stroke-width="1.4"/></symbol>
+  <symbol id="pin" viewBox="0 0 22 28"><path d="M11 27s9-9.2 9-16a9 9 0 1 0-18 0c0 6.8 9 16 9 16z" fill="currentColor"/><circle cx="11" cy="11" r="3.4" fill="#fff"/></symbol>
+</svg>
+
+<main>
+<section class="panel white hero" id="top">
+  <div class="txt">
+    <div class="top">
+      <a class="logo" href="#top" aria-label="Dubai Prime Properties"><svg class="mark" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 26V12.5a9 9 0 0 1 18 0V26" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M9.5 20a4.5 4.5 0 0 1 9 0z" fill="currentColor"/><path d="M5 20.9h18" stroke="currentColor" stroke-width="1.6"/></svg><span><b>Dubai Prime</b><i>PROPERTIES</i></span></a>
+      <nav class="navlinks"><a href="#opp">Opportunities</a><a href="#calc">Calculate returns</a><a href="#process">Process</a><a href="#areas">Areas</a></nav>
+      <div class="icons"><a href="tel:+971501234567" aria-label="Call"><svg class="ico"><use href="#ph"/></svg></a><a href="#calc" aria-label="Calculator"><svg class="ico"><use href="#cal"/></svg></a><button class="menu" id="menuBtn" aria-label="Menu"><svg class="ico"><use href="#mn"/></svg></button></div>
+    </div>
+    <div class="mid">
+      <p class="kick">Curated residential investment in Dubai prime areas</p>
+      <h1 class="h1 hl1"><span class="w"><i>Invest in Dubai property</i></span> <span class="w"><i>with clear returns,</i></span> <span class="w"><i class="g">not guesswork</i></span></h1>
+    </div>
+    <div class="bot">
+      <a class="pill blue" href="#contact"><span class="c"><svg class="ico"><use href="#ph"/></svg></span>Speak with an advisor</a>
+      <a class="explore" href="#opp"><span>View<br>opportunities</span><img src="img/p03.jpg" alt=""></a>
+    </div>
+  </div>
+  <div class="ph">
+    <img src="img/hero-aerial.jpg" alt="Aerial view of Dubai Marina towers and yacht harbour in morning haze">
+    <video class="hv" poster="img/hero-aerial-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="img/hero-aerial.mp4" type="video/mp4"><source src="img/hero-aerial.webm" type="video/webm"></video>
+    <div class="chip bl"><span>Typical investment<br><b>AED 2.2M-9.2M</b></span></div>
+  </div>
+</section>
+
+<section class="panel band" id="why">
+  <img src="img/band-sunrise.jpg" alt="Dubai Marina skyline reflected in calm water at sunrise" loading="lazy">
+  <video class="bv" poster="img/band-sunrise-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"><source src="img/band-sunrise.mp4" type="video/mp4"><source src="img/band-sunrise.webm" type="video/webm"></video>
+  <div class="mq" aria-label="Palm Jumeirah, Downtown Dubai, Dubai Creek Harbour, Dubai Marina"><div class="t">
+    <span>Palm Jumeirah</span><span>Downtown Dubai</span><span>Dubai Creek Harbour</span><span>Dubai Marina</span><span>Palm Jumeirah</span><span>Downtown Dubai</span><span>Dubai Creek Harbour</span><span>Dubai Marina</span>
+  </div></div>
+</section>
+
+<section class="panel dark pad" id="opp">
+  <div class="phead rv">
+    <div><p class="kick" style="color:rgba(255,255,255,.6)">Featured project</p><h2 class="h2" style="margin-top:14px">Current investment opportunities</h2></div>
+    <p class="note" style="max-width:300px">One project at a time, chosen for rental demand and payment flexibility. Ask for the full list.</p>
+  </div>
+  <div class="feat rv">
+    <div class="fgal">
+      <div class="stage" id="stage"><img class="on" src="img/p03.jpg" alt="Living room"><img src="img/p04.jpg" alt="Pool terrace"><img src="img/p05.jpg" alt="Bedroom"><img src="img/p10.jpg" alt="Balcony"><span class="chip loc"><svg class="ico" viewBox="0 0 22 28"><use href="#pin"/></svg>Jumeirah Beach Residence (JBR)</span><span class="count" id="fcount">01 / 04</span></div>
+      <div class="thumbs" id="thumbs"><button class="th on" data-i="0" aria-label="Living room"><img src="img/p03.jpg" alt="Living room"><i></i><span>Living room</span></button><button class="th" data-i="1" aria-label="Pool terrace"><img src="img/p04.jpg" alt="Pool terrace"><i></i><span>Pool terrace</span></button><button class="th" data-i="2" aria-label="Bedroom"><img src="img/p05.jpg" alt="Bedroom"><i></i><span>Bedroom</span></button><button class="th" data-i="3" aria-label="Balcony"><img src="img/p10.jpg" alt="Balcony"><i></i><span>Balcony</span></button></div>
+    </div>
+    <aside class="finfo">
+      <div>
+        <h3>Azure Marina Residences</h3>
+        <p class="fdesc">A waterfront address in JBR, one of Dubai's established beachfront communities, popular with short-stay renters.</p>
+      </div>
+      <dl class="specs">
+        <div><dt>Starting price</dt><dd>AED 1.85M</dd></div>
+        <div><dt>Unit types</dt><dd>1-2 bedroom apt</dd></div>
+        <div><dt>Completion</dt><dd>Ready</dd></div>
+        <div><dt>Purchase</dt><dd>Secondary</dd></div>
+      </dl>
+      <div class="fcta">
+        <a class="pill blue" href="#contact"><span class="c"><svg class="ico"><use href="#ar"/></svg></span>Request details</a>
+        <a class="pill lt" href="#contact"><span class="c"><svg class="ico"><use href="#ar"/></svg></span>Ask for the full list</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<div class="awrap" id="awrap">
+<section class="panel ice areas" id="areas">
+  <div class="al">
+    <div class="rv"><p class="kick">Where to invest</p><h2 class="h2" style="margin-top:14px">High-demand districts driving returns in 2026</h2><p class="lead">Based on rental demand, transaction volume, and infrastructure growth, these areas consistently attract investors in the AED 2.2M-9.2M range.</p></div>
+    <div class="locs rv" id="locs">
+      <button class="loc-i on" data-i="0"><span class="n">01</span><span class="t"><b>Palm Jumeirah</b><small>Beachfront apartments and villas on the island, popular with short-stay renters.</small></span><span class="tag">Rental income</span></button>
+      <button class="loc-i" data-i="1"><span class="n">02</span><span class="t"><b>Downtown Dubai</b><small>Homes around the Burj Khalifa and Dubai Mall, a central address tenants look for all year.</small></span><span class="tag">Central living</span></button>
+      <button class="loc-i" data-i="2"><span class="n">03</span><span class="t"><b>Dubai Creek Harbour</b><small>A newer waterfront district by the creek, with off-plan projects for growth-focused buyers.</small></span><span class="tag">Capital growth</span></button>
+    </div>
+  </div>
+  <div class="mapw" id="mapw">
+    <div class="mapz" id="mapz"><div class="mimg" id="mimg"><img src="img/map-gen.jpg" alt="Map of Dubai with Palm Jumeirah, Downtown Dubai and Dubai Creek Harbour">
+      <button class="mp on" data-i="0" style="left:21.5%;top:61%" aria-label="Palm Jumeirah"><i></i><span>Palm Jumeirah</span><em class="pv"><img src="img/p07-blue.jpg" alt="Palm Jumeirah from above" loading="lazy"></em></button>
+      <button class="mp" data-i="1" style="left:65%;top:49%" aria-label="Downtown Dubai"><i></i><span>Downtown Dubai</span><em class="pv"><img src="img/p08.jpg" alt="Downtown Dubai boulevard" loading="lazy"></em></button>
+      <button class="mp" data-i="2" style="left:89%;top:43%" aria-label="Dubai Creek Harbour"><i></i><span>Dubai Creek Harbour</span><em class="pv pr"><img src="img/p09.jpg" alt="Dubai Creek Harbour waterfront" loading="lazy"></em></button>
+    </div></div>
+    <div class="acover" id="acover" aria-hidden="true"><img src="img/p07-blue.jpg" alt=""><div class="acw"><span>Palm Jumeirah</span><span>Downtown</span><span>Creek Harbour</span></div><p>Three districts, one map</p></div>
+    <div class="mcard" id="mcard"><img class="mcimg" id="mcI" src="img/p07-blue.jpg" alt=""><small id="mcN">01 / 03</small><b id="mcT">Palm Jumeirah</b><span id="mcS">Rental income</span><a class="pill blue" href="#contact"><span class="c"><svg class="ico"><use href="#ar"/></svg></span>Ask about this area</a></div>
+    <div class="zoom"><button id="zin" aria-label="Zoom in">+</button><button id="zout" aria-label="Zoom out">-</button></div>
+  </div>
+</section>
+</div>
+
+
+
+<section class="panel whop" id="why2">
+  <div class="stats">
+  <div class="shead rv"><div><p class="kick" style="color:var(--mute)">Why Dubai</p><h2 class="h2" style="margin-top:14px;max-width:620px">A rare mix of return, stability, and transparency for long-term property investment</h2></div>
+    <a class="pill blue" href="#contact"><span class="c"><svg class="ico"><use href="#ph"/></svg></span>Get a consultation</a></div>
+  <div class="scards">
+    <div class="sc lt rv"><b>0%</b><p><strong>Tax</strong>No property tax or capital gains tax, full rental income</p></div>
+    <div class="sc im rv"><img src="img/p06.jpg" alt="Arch framing the Dubai skyline" loading="lazy"><b>6-9%</b><p><strong>Rental yields</strong>Consistently high demand supports strong annual returns</p></div>
+    <div class="sc dk rv"><span class="ghost">DUBAI</span><b>USD</b><p><strong>Pegged currency</strong>Stable exchange rate reduces risk for international investors</p></div>
+  </div>
+</div>
+  <div class="who">
+    <div class="rv">
+      <h2 class="h2" style="max-width:440px">Designed for investment-focused buyers</h2>
+      <p class="lead">We partner with private investors and families to diversify capital in residential property, focusing on yield, liquidity, and exit strategy rather than lifestyle branding.</p>
+      <a class="more" href="#contact">Leave the message →</a>
+    </div>
+    <div class="list rv">
+      <div class="it open"><button><img src="img/p10.jpg" alt=""><span>Buy-to-let investors</span><svg class="ico"><use href="#dn"/></svg></button><div class="b"><div><p>Focused on rental income and consistent tenant demand.</p></div></div></div>
+      <div class="it"><button><img src="img/p11.jpg" alt=""><span>Capital growth buyers</span><svg class="ico"><use href="#dn"/></svg></button><div class="b"><div><p>Targeting emerging districts and off-plan opportunities with upside.</p></div></div></div>
+      <div class="it"><button><img src="img/p12.jpg" alt=""><span>Relocation + investment</span><svg class="ico"><use href="#dn"/></svg></button><div class="b"><div><p>Combining residency options with long-term asset value.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel white proc" id="process">
+  <div class="phead rv"><div><p class="kick" style="color:var(--mute)">How we work</p><h2 class="h2" style="margin-top:14px">A clear, advisory-led process</h2></div><p class="small" style="max-width:280px">No pressure. Clear advice focused on long-term value.</p></div>
+  <div class="route" id="route">
+    <svg viewBox="0 0 1000 400" preserveAspectRatio="none" aria-hidden="true"><path class="trk" d="M0 264 H120 H210 L290 136 H370 H460 L540 264 H620 H710 L790 136 H870 H1000"/><path class="drw" id="rdrw" d="M0 264 H120 H210 L290 136 H370 H460 L540 264 H620 H710 L790 136 H870 H1000"/></svg>
+    <span class="rhead" id="rhead" aria-hidden="true"></span><span class="vfill" aria-hidden="true"></span>
+    <ol class="stops"><li class="lo" style="--x:12%;--y:66%"><span class="st">01</span><div class="sx"><h3>Initial consultation</h3><p>We start by understanding your investment goals, budget range, and expected time horizon, so every option fits your strategy.</p></div></li><li class="hi" style="--x:37%;--y:34%"><span class="st">02</span><div class="sx"><h3>Shortlisted opportunities</h3><p>A short list of projects that fit your budget and goal, with rental estimates and payment plans side by side.</p></div></li><li class="lo" style="--x:62%;--y:66%"><span class="st">03</span><div class="sx"><h3>Legal &amp; purchase support</h3><p>Reservation, due diligence and transfer coordinated with trusted legal partners, with every fee clear up front.</p></div></li><li class="hi last" style="--x:87%;--y:34%"><span class="st">04</span><div class="sx"><h3>Handover &amp; rental setup</h3><p>Inspection, furnishing if needed and rental setup, so the property is ready to earn from day one.</p></div></li></ol>
+  </div>
+</section>
+
+<section class="panel calcp" id="calc">
+  <div class="calcw">
+    <div class="rv">
+      <p class="kick" style="color:var(--mute)">Calculate</p>
+      <h2 class="h2" style="margin-top:14px">Estimate returns in under 60 seconds</h2>
+      <p class="lead">Adjust the values to see projected rental income and payment timelines. Figures are indicative and depend on project specifics.</p>
+      <a class="pill" href="#contact" style="margin-top:28px"><span class="c"><svg class="ico"><use href="#ar"/></svg></span>Request a full breakdown</a>
+    </div>
+    <div class="rv">
+      <div class="calc">
+        <div class="fbox">
+          <div class="f"><label for="price">Property price</label><div class="fld"><input id="price" inputmode="numeric" value="620,000"><span class="x">AED</span></div><input type="range" id="priceR" min="300000" max="9200000" step="10000" value="620000" aria-label="Property price slider"></div>
+          <div class="f"><label for="down">Down payment</label><div class="fld"><input class="s" id="down" inputmode="numeric" value="20"><span>%</span><span class="x" id="downAed">AED 124,000</span></div></div>
+          <div class="f"><label for="months">Payment plan duration</label><div class="fld"><input id="months" inputmode="numeric" value="36"><span class="x">months</span></div></div>
+          <div class="f"><label for="lo">Estimated rental range</label><div class="fld"><input class="m" id="lo" inputmode="numeric" value="42,000"><span>-</span><input class="m" id="hi" inputmode="numeric" value="50,000" aria-label="Rent to"><span class="x">AED / yr</span></div></div>
+        </div>
+        <div class="rbox">
+          <div class="res"><small>Estimated annual rent</small><div><span id="rRent">46,000</span><em>AED</em></div></div>
+          <div class="res"><small>Gross yield</small><div><span id="rYield">7.4</span><em>%</em></div></div>
+          <div class="res"><small>Capital invested by handover</small><div><span id="rCap">310,000</span><em>AED</em></div></div>
+        </div>
+      </div>
+      <p class="calcnote">Assumes 80% occupancy and conservative rental projection*</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel white galw" id="gallery">
+  <div class="gstage" id="gstage">
+    <h2 class="gtitle" id="gtitle">Inside the residences<sup>(13)</sup></h2>
+    <img class="gt" src="img/p01.jpg" alt="" data-x="8" data-y="10" data-w="9" data-d="1.2" loading="lazy"><img class="gt" src="img/p13.jpg" alt="" data-x="24" data-y="4" data-w="6" data-d="0.8" loading="lazy"><img class="gt" src="img/p06.jpg" alt="" data-x="70" data-y="6" data-w="8" data-d="1.1" loading="lazy"><img class="gt" src="img/p02.jpg" alt="" data-x="84" data-y="26" data-w="11" data-d="0.9" loading="lazy"><img class="gt" src="img/p08.jpg" alt="" data-x="4" data-y="44" data-w="10" data-d="1" loading="lazy"><img class="gt" src="img/p05.jpg" alt="" data-x="18" data-y="70" data-w="7" data-d="1.3" loading="lazy"><img class="gt" src="img/p10.jpg" alt="" data-x="76" data-y="62" data-w="8" data-d="1.2" loading="lazy"><img class="gt" src="img/p12.jpg" alt="" data-x="58" data-y="78" data-w="7" data-d="0.9" loading="lazy"><img class="gt" src="img/p07-blue.jpg" alt="" data-x="36" data-y="82" data-w="9" data-d="1" loading="lazy"><img class="gt" src="img/p11.jpg" alt="" data-x="90" data-y="70" data-w="6" data-d="0.8" loading="lazy"><img class="gt" src="img/p04.jpg" alt="" data-x="62" data-y="30" data-w="6" data-d="1.4" loading="lazy"><img class="gt" src="img/p09.jpg" alt="" data-x="30" data-y="28" data-w="7" data-d="1.1" loading="lazy">
+    <div class="gcenter" id="gcenter"><img class="gi on" src="img/p03.jpg" alt="Penthouse living room with sea view"><img class="gi" src="img/p10.jpg" alt="Balcony with sea view"><img class="gi" src="img/p12.jpg" alt="Family kitchen"><div class="gshade"></div>
+      <div class="gwords" id="gwords"><div class="gtrack" id="gtrack"><span class="gw on">Penthouse living</span><span class="gw">Sea views</span><span class="gw">Family homes</span></div></div>
+      <div class="gtext"><p class="gp on">Open-plan homes with floor-to-ceiling glass, calm materials and views across the water.</p><p class="gp">Balconies and terraces that face the Gulf, the Palm or the skyline, chosen for light and outlook.</p><p class="gp">Villas and larger apartments with space to cook, gather and settle in for the long term.</p></div>
+      <a class="pill lt gcta" href="#contact"><span class="c"><svg class="ico"><use href="#ar"/></svg></span>Get the shortlist</a>
+    </div>
+  </div>
+</section>
+
+<section class="panel white cta" id="contact">
+  <div class="ph">
+    <img src="img/p14.jpg" alt="Yachts in Dubai Marina at dusk" loading="lazy">
+    <div class="t"><h2 class="h1">Start your investment journey with clarity</h2><p>Get a personalised overview of Dubai property opportunities aligned with your budget and long-term goals. No pressure. Clear advice. Long-term focus.</p><a class="pill lt" href="tel:+971501234567"><span class="c"><svg class="ico"><use href="#ph"/></svg></span>+971 50 123 4567</a></div>
+  </div>
+  <div>
+    <form id="form" novalidate>
+      <p class="k">Request a personalised consultation</p>
+      <label class="in"><input name="name" placeholder="Full name" required autocomplete="name"></label>
+      <label class="in"><input name="email" type="email" placeholder="Email" required autocomplete="email"></label>
+      <label class="in sel"><select name="budget" aria-label="Budget"><option>Budget</option><option>AED 1.5M-2.2M</option><option>AED 2.2M-5M</option><option>AED 5M-9.2M</option><option>AED 9.2M +</option></select></label>
+      <label class="in sel"><select name="goal" id="goal" aria-label="Investment goal"><option>Investment goal</option><option>Rental income</option><option>Capital growth</option><option>Relocation + investment</option></select></label>
+      <textarea name="msg" placeholder="Tell us more about your investment timeline or preferences"></textarea>
+      <button class="pill blue" type="submit"><span class="c"><svg class="ico"><use href="#ar"/></svg></span>Send request</button>
+      <small>We respond within 24 hours</small>
+    </form>
+    <div class="done" role="status"><h3 class="h2">Thank you.</h3><p>An advisor will get back to you within 24 hours with a first overview.</p><p class="small">Preview: this form doesn’t send anything yet.</p></div>
+  </div>
+</section>
+</main>
+
+<footer class="panel dark">
+  <div class="g">
+    <div><a class="logo" href="#top" aria-label="Dubai Prime Properties"><svg class="mark" viewBox="0 0 28 28" aria-hidden="true"><path d="M5 26V12.5a9 9 0 0 1 18 0V26" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M9.5 20a4.5 4.5 0 0 1 9 0z" fill="currentColor"/><path d="M5 20.9h18" stroke="currentColor" stroke-width="1.6"/></svg><span><b>Dubai Prime</b><i>PROPERTIES</i></span></a><p class="small" style="margin-top:18px">Curated residential investment opportunities in Dubai prime areas.</p></div>
+    <nav><h4>Explore</h4><a href="#opp">Opportunities</a><a href="#calc">Calculate returns</a><a href="#process">Process</a><a href="#areas">Areas</a></nav>
+    <nav><h4>Contact</h4><a href="#contact">Speak with an advisor</a><a href="tel:+971501234567">+971 50 123 4567</a></nav>
+  </div>
+  <div class="bot"><p>Information provided is indicative and subject to availability, developer terms, and regulatory approval. This website does not constitute financial or legal advice.</p><span>© 2026 Dubai Prime Properties · Website by SVG</span></div>
+</footer>
+<div class="mbar" id="mbar"><span>AED 2.2M-9.2M</span><a class="pill lt" href="#contact"><span class="c"><svg class="ico"><use href="#ph"/></svg></span>Advisor</a></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('shown');io.unobserve(e.target)}}),{threshold:.1});
+$$('.rv').forEach(el=>io.observe(el));
+$('#menuBtn').onclick=()=>document.querySelector('footer').scrollIntoView({behavior:'smooth'});
+const mbar=$('#mbar');addEventListener('scroll',()=>mbar.classList.toggle('on',scrollY>innerHeight*.6&&scrollY<document.body.scrollHeight-innerHeight*1.6),{passive:true});
+// featured gallery
+{const imgs=$$('#stage img'),ths=$$('#thumbs .th');let fi=0,tm;
+ const go=i=>{fi=i;imgs.forEach((m,k)=>m.classList.toggle('on',k===i));ths.forEach((b,k)=>{b.classList.remove('on');if(k===i){void b.offsetWidth;b.classList.add('on')}});$('#fcount').textContent=`0${i+1} / 0${imgs.length}`;clearTimeout(tm);tm=setTimeout(()=>go((fi+1)%imgs.length),5000)};
+ ths.forEach(b=>b.onclick=()=>go(+b.dataset.i));go(0)}
+$$('.pin').forEach(p=>p.onclick=()=>$$('.pin').forEach(x=>x.classList.toggle('on',x===p)));
+$$('.it>button').forEach(b=>b.onclick=()=>{const it=b.parentElement,o=it.classList.contains('open');$$('.it').forEach(x=>x.classList.remove('open'));if(!o)it.classList.add('open')});
+// areas map
+const AREAS=[['Palm Jumeirah','Rental income',14.5,55],['Downtown Dubai','Central living',59,26],['Dubai Creek Harbour','Capital growth',84,17]];
+const mimg=$('#mimg'),mapz=$('#mapz');let ai=0,zoom=1.5;const AR=1116/2000;
+function setArea(i,z){ai=i;if(z)zoom=z;const [n,tag]=AREAS[i],p=$$('.mp')[i];
+  $$('.loc-i').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));$$('.mp').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));
+  $('#mcN').textContent=`0${i+1} / 03`;$('#mcT').textContent=n;$('#mcS').textContent=tag;
+  const W=mapz.clientWidth,H=mapz.clientHeight;let w=Math.max(W,H/AR),h=w*AR;mimg.style.width=w+'px';mimg.style.height=h+'px';
+  const x=parseFloat(p.style.left)/100*w,y=parseFloat(p.style.top)/100*h;
+  let tx=W/2-x*zoom,ty=H*.42-y*zoom;tx=Math.min(0,Math.max(W-w*zoom,tx));ty=Math.min(0,Math.max(H-h*zoom,ty));
+  mimg.style.transform=`translate(${tx}px,${ty}px) scale(${zoom})`;mimg.style.setProperty('--ps',(1/zoom).toFixed(3))}
+$$('.loc-i,.mp').forEach(b=>b.onclick=()=>setArea(+b.dataset.i));
+$$('.mp').forEach(m=>m.addEventListener('mouseenter',()=>{const r=m.getBoundingClientRect(),f=$('.mapz').getBoundingClientRect();m.classList.toggle('dn',r.top-f.top<230)}));
+$('#zin').onclick=()=>setArea(ai,Math.min(3,zoom+.4));$('#zout').onclick=()=>setArea(ai,Math.max(1,zoom-.4));
+setArea(0);addEventListener('resize',()=>setArea(ai));
+// background loops: fade in once playing
+document.querySelectorAll('video.hv,video.bv').forEach(v=>{const on=()=>v.classList.add('on');v.addEventListener('playing',on);if(!v.paused&&v.readyState>2)on();v.play&&v.play().catch(()=>{})});
+// process route: line draws on scroll, stops light up
+{const R=$('#route'),P=$('#rdrw'),hd=$('#rhead'),L=$$('#route .stops li');const len=P.getTotalLength();let cum=[],SL=1;const meas=()=>{const sx=R.clientWidth/1000,sy=R.clientHeight/400;cum=[0];let pv=P.getPointAtLength(0);for(let l=4;l<=len+4;l+=4){const q=P.getPointAtLength(Math.min(l,len));cum.push(cum[cum.length-1]+Math.hypot((q.x-pv.x)*sx,(q.y-pv.y)*sy));pv=q}SL=cum[cum.length-1];P.style.strokeDasharray=SL+' '+SL};meas();
+ const sl=L.map(li=>{const x=parseFloat(li.style.getPropertyValue('--x'))*10,y=parseFloat(li.style.getPropertyValue('--y'))*4;let best=0,bd=1e9;for(let l=0;l<=len;l+=4){const q=P.getPointAtLength(l),dd=(q.x-x)**2+(q.y-y)**2;if(dd<bd){bd=dd;best=l}}return best});
+ function rt(){const r=R.getBoundingClientRect(),vh=innerHeight,mob=innerWidth<=700;
+  const p=Math.max(0,Math.min(1,mob?(vh*.7-r.top)/r.height:(vh*.85-r.top)/(r.height*.9+vh*.15)));R.style.setProperty('--rp',p.toFixed(3));
+  if(mob){L.forEach(li=>{li.classList.toggle('on',li.getBoundingClientRect().top<vh*.7)});return}
+  const l=len*p;P.style.strokeDashoffset=(SL-cum[Math.min(cum.length-1,Math.round(l/4))]).toFixed(1);const q=P.getPointAtLength(l);hd.style.left=(q.x/10)+'%';hd.style.top=(q.y/4)+'%';hd.style.opacity=p>0&&p<1?1:0;
+  L.forEach((li,i)=>li.classList.toggle('on',l>=sl[i]-2))}
+ addEventListener('scroll',rt,{passive:true});addEventListener('resize',()=>{meas();rt()});rt()}
+// areas: Palm aerial photo opens into the map, list slides in
+{const aw=$('#awrap'),A=$('#areas'),mw=$('#mapw'),al=A.querySelector('.al'),cov=$('#acover');
+ const cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),io=k=>k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;let last=-1;
+ function at(){if(innerWidth<=700){aw.classList.add('pins');return}
+  const r=aw.getBoundingClientRect(),H=A.offsetHeight,p=cl(-r.top/(aw.offsetHeight-H));if(Math.abs(p-last)<.0005)return;last=p;
+  const c=io(cl((p-.12)/.38)),g=io(cl((p-.3)/.45)),u=cl((p-.78)/.16);
+  A.style.setProperty('--co',(1-c).toFixed(3));A.style.setProperty('--cs',(1.15-.15*c).toFixed(3));
+  A.style.setProperty('--wo',(1-cl((p-.05)/.25)).toFixed(3));A.style.setProperty('--wy',(-60*cl(p/.3)).toFixed(1)+'px');
+  const target=al.offsetWidth+16;A.style.setProperty('--ml',(8+(target-8)*g).toFixed(1)+'px');
+  A.style.setProperty('--ao',cl((p-.5)/.3).toFixed(3));A.style.setProperty('--uo',u.toFixed(3));
+  aw.classList.toggle('pins',p>.72);
+  if(p<.85){aw.classList.add('scrub');setArea(0,3.2-2.05*g)}else if(aw.classList.contains('scrub')){aw.classList.remove('scrub');setArea(ai,1.15)}}
+ addEventListener('scroll',at,{passive:true});addEventListener('resize',()=>{last=-1;at()});at()}
+// gallery: photos fly apart, centre photo grows to full screen, words slide across it
+{const sec=$('#gallery'),st=$('#gstage'),T=$$('.gt'),ttl=$('#gtitle'),gc=$('#gcenter'),shade=gc.querySelector('.gshade'),gw=$('#gwords'),tr=$('#gtrack'),W=$$('.gw'),P=$$('.gp'),gtx=gc.querySelector('.gtext'),cta=gc.querySelector('.gcta');
+ const GI=gc.querySelectorAll('.gi');const cl=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),ease=k=>1-Math.pow(1-k,3),io=k=>k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;let wi=-1;
+ function tick(){const r=sec.getBoundingClientRect(),H=st.clientHeight,Wd=st.clientWidth,p=cl(-r.top/(sec.offsetHeight-H)),mob=Wd<700;
+  const a=io(cl(p/.55));
+  T.forEach(im=>{const x=+im.dataset.x,y=+im.dataset.y,w=+im.dataset.w*(mob?2.1:1),d=+im.dataset.d;const cx=x-50,cy=y-50,f=1+a*2.4*d;
+   im.style.width=w+'vw';im.style.left=(50+cx*f)+'%';im.style.top=(50+cy*f)+'%';im.style.transform=`translate(-50%,-50%) scale(${1+a*1.6*d})`;im.style.opacity=(1-cl((a-.55)/.45)).toFixed(3)});
+  ttl.style.opacity=(1-cl((p-.1)/.24)).toFixed(3);ttl.style.transform=`translate(-50%,-50%) scale(${1+cl(p/.36)*.35})`;
+  const g=io(cl((p-.14)/.4)),w0=mob?.3:.1,h0=w0*Wd*1.25/H;const w=w0+(1-w0)*g,h=Math.min(1,h0+(1-h0)*g);
+  gc.style.width=(w*100)+'%';gc.style.height=(h*100)+'%';gc.style.left=((1-w)*50)+'%';gc.style.top=((1-h)*50+(1-g)*(mob?24:25))+'%';gc.style.borderRadius=(6+(1-g)*0)+'px';
+  const s=cl((p-.52)/.08);shade.style.opacity=s;gw.style.opacity=s;gtx.style.opacity=s;cta.style.opacity=cl((p-.85)/.1);
+  const q=cl((p-.58)/.4),n=W.length,i=Math.min(n-1,Math.floor(q*n));
+  const target=W[i].offsetLeft,off=Wd*(mob?.08:.32);tr.style.transform=`translateX(${off-target}px)`;tr.style.transition='transform .8s cubic-bezier(.2,.7,.2,1)';
+  if(i!==wi){wi=i;GI.forEach((e,k)=>e.classList.toggle('on',k===i));W.forEach((e,k)=>e.classList.toggle('on',k===i));P.forEach((e,k)=>e.classList.toggle('on',k===i))}
+  gtx.style.left=mob?'22px':off+'px'}
+ addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);tick()}
+requestAnimationFrame(()=>requestAnimationFrame(()=>document.body.classList.add('intro')));
+// motion: band photo opens up, headlines rise word by word, stat cards stagger, numbers count
+{const band=$('.band'),bi=band&&band.querySelector('img');
+ const bt=()=>{if(!bi)return;const r=band.getBoundingClientRect(),k=Math.max(0,Math.min(1,(innerHeight-r.top)/(innerHeight*.9)));band.style.setProperty('--ci',(12*(1-k)).toFixed(2)+'%');band.style.setProperty('--cx',(18*(1-k)).toFixed(2)+'%');band.style.setProperty('--cs',(1.12-.12*k).toFixed(3));const m=Math.max(0,Math.min(1,(k-.35)/.5));band.style.setProperty('--mo',m.toFixed(3));band.style.setProperty('--my',(40*(1-m)).toFixed(1)+'px');band.style.setProperty('--ms',(.9+.1*m).toFixed(3))};
+ addEventListener('scroll',bt,{passive:true});bt();
+ $$('.h2').forEach(h=>{if(h.closest('.hero'))return;h.innerHTML=h.textContent.trim().split(/\s+/).map(w=>`<span class="w"><i>${w}</i></span>`).join(' ');h.classList.add('split');h.querySelectorAll('.w>i').forEach((s,i)=>s.style.transitionDelay=(i*.04)+'s')});
+ const count=el=>{const raw=el.textContent,m=raw.match(/^(\d+)(?:-(\d+))?%$/);if(!m)return;const a=+m[1],b=m[2]?+m[2]:null,t0=performance.now();(function f(n){const k=Math.min(1,(n-t0)/1400),e=1-Math.pow(1-k,3);el.textContent=b===null?Math.round(a*e)+'%':Math.round(a*e)+'-'+Math.round(b*e)+'%';if(k<1)requestAnimationFrame(f)})(t0)};
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('on');if(e.target.classList.contains('scards'))e.target.querySelectorAll('.sc b').forEach(count);io.unobserve(e.target)}),{threshold:.3});
+ $$('.h2.split,.scards').forEach(el=>io.observe(el))}
+// calculator
+const num=v=>+String(v).replace(/[^\d.]/g,'')||0,fmt=n=>Math.round(n).toLocaleString('en-US');
+function calc(){const p=num($('#price').value),d=Math.min(100,num($('#down').value)),m=num($('#months').value),lo=num($('#lo').value),hi=num($('#hi').value)||lo;
+  const rent=(lo+hi)/2,y=p?rent/p*100:0,share=Math.min(100,d+m*(30/36));
+  $('#downAed').textContent=`AED ${fmt(p*d/100)}`;$('#rRent').textContent=fmt(rent);$('#rYield').textContent=y.toFixed(1);$('#rCap').textContent=fmt(p*share/100)}
+['price','down','months','lo','hi'].forEach(id=>{const el=$('#'+id);el.addEventListener('input',()=>{if(id==='price')$('#priceR').value=num(el.value);calc()});el.addEventListener('blur',()=>{if(['price','lo','hi'].includes(id))el.value=fmt(num(el.value))})});
+$('#priceR').addEventListener('input',e=>{$('#price').value=fmt(e.target.value);calc()});
+$('#form').addEventListener('submit',e=>{e.preventDefault();let ok=true;
+  [...e.target.querySelectorAll('input[required]')].forEach(i=>{const bad=!i.checkValidity()||!i.value.trim();i.parentElement.classList.toggle('err',bad);if(bad)ok=false});
+  if(ok)$('#contact').classList.add('sent')});
+</script>
+</body>
+</html>
